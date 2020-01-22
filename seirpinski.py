@@ -2,6 +2,8 @@ from tkinter import Tk, Scale, Canvas, HORIZONTAL
 import math
 
 
+
+
 class Sierpinski:
     def __init__(self, master):
         self.master = master
