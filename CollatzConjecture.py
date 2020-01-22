@@ -1,8 +1,10 @@
 from tkinter import Tk, Canvas
 import numpy as np
 
-GR = 1.61803398875
 PI = np.pi
+GR = 1.61803398875
+theta = {"left": PI / 15, "right": PI / 30}
+mod = {"left": -1, "right": 1}
 
 
 def collatz(start):
@@ -20,10 +22,10 @@ def collatz_parity(start):
     while n > 1:
         if n % 2:
             n = 3 * n + 1
-            seq = np.append(seq, PI / 15)
+            seq = np.append(seq, "left")
         else:
             n /= 2
-            seq = np.append(seq, -PI / 30)
+            seq = np.append(seq, "right")
     return seq[::-1]
 
 
@@ -45,11 +47,11 @@ class Collatz:
         x = origin["x"]
         y = origin["y"]
         for p in parity:
-            a = segment_len * np.sin(PI/2 - p)
-            b = segment_len * np.cos(PI/2 - p)
-            canvas.create_line(x, y, x - b, y - a)
-            x -= b
-            y -= a
+            y_step = (segment_len * np.sin(theta[p]))
+            x_step = mod[p] * (segment_len * np.cos(theta[p]))
+            canvas.create_line(x, y, x - x_step, y - y_step)
+            x -= x_step
+            y -= y_step
 
 
 # canvas.create_line(origin["x"], origin["y"], 0, 0)
